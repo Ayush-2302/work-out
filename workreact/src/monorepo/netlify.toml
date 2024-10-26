@@ -1,0 +1,8 @@
+[build]
+  publish = "packages/site"  # Adjust this based on your actual structure
+  command = "npm run build"   # Adjust this command based on your build setup
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

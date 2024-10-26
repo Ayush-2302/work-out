@@ -23,7 +23,7 @@ const TargetDetails = () => {
 
   useEffect(() => {
     getTargetDetail();
-  }, [target]); // Add target to the dependency array
+  }, [target]);
 
   return (
     <div className="container mx-auto">
