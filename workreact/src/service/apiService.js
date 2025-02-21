@@ -3,7 +3,7 @@ import axios from "axios";
 const apiKey = process.env.REACT_APP_API_KEY;
 
 
-export const fetchExercises = async (endpoint, params = {}) => {
+export const fetchExercises = async (endpoint, params) => {
   const options = {
     method: "GET",
     url: `https://exercisedb.p.rapidapi.com/${endpoint}`,
