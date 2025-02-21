@@ -10,26 +10,25 @@ const TargetDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const getTargetDetail = async () => {
-    setLoading(true);
-    try {
-      const response = await fetchExercises(`exercises/target/${target}`, {
-        limit: 10,
-        offset: 0,
-      });
-      setData(response);
-      console.log(response);
-    } catch (error) {
-      setError(error.message);
-      console.error("Error fetching exercises:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const getTargetDetail = async () => {
+      setLoading(true);
+      try {
+        const response = await fetchExercises(`exercises/target/${target}`, {
+          limit: 10,
+          offset: 0,
+        });
+        setData(response);
+        console.log(response);
+      } catch (error) {
+        setError(error.message);
+        console.error("Error fetching exercises:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
     getTargetDetail();
-  }, [target]); 
+  }, [target]);
 
   return (
     <div className="container mx-auto">
