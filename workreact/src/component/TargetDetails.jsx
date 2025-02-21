@@ -23,7 +23,7 @@ const TargetDetails = () => {
 
   useEffect(() => {
     getTargetDetail();
-  }, [target]);
+  }, []);
 
   return (
     <div className="container mx-auto">
