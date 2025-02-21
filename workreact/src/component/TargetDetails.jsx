@@ -7,29 +7,42 @@ const TargetDetails = () => {
   console.log(target);
 
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const getTargetDetail = async () => {
+    setLoading(true);
     try {
-      const targets = await fetchExercises(`exercises/target/${target}`, {
-        limit: "10",
-        offset: "0",
+      const response = await fetchExercises(`exercises/target/${target}`, {
+        limit: 10,
+        offset: 0,
       });
-      setData(targets);
-      console.log(targets); // Log the fetched targets
+      setData(response);
+      console.log(response);
     } catch (error) {
+      setError(error.message);
       console.error("Error fetching exercises:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     getTargetDetail();
-  }, []);
+  }, [target]); 
 
   return (
     <div className="container mx-auto">
-      <h1 className="text-center text-5xl bold mb-4">Exercises for {target}</h1>
-      {data.length > 0 ? (
-        <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <h1 className="text-center text-5xl font-bold mb-4">
+        Exercises for {target}
+      </h1>
+
+      {loading ? (
+        <p>Loading exercises...</p>
+      ) : error ? (
+        <p className="text-red-500">Error: {error}</p>
+      ) : data.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {data.map((exercise, index) => (
             <div key={index} className="bg-white rounded-lg shadow-md p-4">
               <img
@@ -52,7 +65,7 @@ const TargetDetails = () => {
           ))}
         </div>
       ) : (
-        <p>Loading exercises...</p>
+        <p>No exercises found for {target}</p>
       )}
     </div>
   );
