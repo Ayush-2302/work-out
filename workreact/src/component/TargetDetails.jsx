@@ -21,12 +21,13 @@ const TargetDetails = () => {
         setData(response);
         console.log(response);
       } catch (error) {
-        setError(error.message);
+        setError("An error occurred while fetching exercises. Please try again later.");
         console.error("Error fetching exercises:", error);
       } finally {
         setLoading(false);
       }
     };
+
     getTargetDetail();
   }, [target]);
 
@@ -39,11 +40,11 @@ const TargetDetails = () => {
       {loading ? (
         <p>Loading exercises...</p>
       ) : error ? (
-        <p className="text-red-500">Error: {error}</p>
+        <p className="text-red-500">{error}</p>
       ) : data.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {data.map((exercise, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-md p-4">
+          {data.map((exercise) => (
+            <div key={exercise.id} className="bg-white rounded-lg shadow-md p-4">
               <img
                 src={exercise.gifUrl}
                 alt={exercise.name}
