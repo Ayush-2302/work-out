@@ -8,29 +8,34 @@ function WorkForm() {
   const [load, setLoad] = useState("");
   const [reps, setReps] = useState("");
   const [error, setError] = useState(null);
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const workout = { title, load, reps };
-    const response = await fetch("/api/workout", {
+    const response = await fetch(`${process.env.REACT_APP_API_URI}/workout`, {
       method: "POST",
       body: JSON.stringify(workout),
       headers: {
-        "content-Type": "application/json",
+        "Content-Type": "application/json",
       },
     });
+    
+
+    console.log(response);
+    
+    const contentType = response.headers.get("content-type");
     const json = await response.json();
 
-    if (!response.ok) {
-      setError(json.error);
-    }
     if (response.ok) {
-      setTitle('')
-      setLoad('')
-      setReps('')
-      setError(null)
+      setTitle("");
+      setLoad("");
+      setReps("");
+      setError(null);
       console.log("workout added ");
-      dispatch({type: 'CREATE_WORKOUT', payload: json})
-
+      dispatch({ type: "CREATE_WORKOUT", payload: json });
+    } else {
+      console.error("Unexpected response type:", contentType);
+      setError("Unexpected response from the server");
     }
   };
   return (
@@ -128,7 +133,11 @@ function WorkForm() {
                 Add Workout
               </button>
             </div>
-            {error && <div className="error border-2 rounded-md border-red-400 p-2 text-red-600">{error}</div>}
+            {error && (
+              <div className="error border-2 rounded-md border-red-400 p-2 text-red-600">
+                {error}
+              </div>
+            )}
           </form>
         </div>
       </div>
