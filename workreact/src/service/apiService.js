@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const apiKey = "40e77e9ec8mshe5745d0f975c28bp1b9cbcjsn5227e68aa330";
+const apiKey = process.env.REACT_APP_API_KEY;
+
 
 export const fetchExercises = async (endpoint, params = {}) => {
   const options = {
