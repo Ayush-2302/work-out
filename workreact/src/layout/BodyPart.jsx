@@ -7,19 +7,21 @@ const BodyPart = () => {
   const { bodyPart } = useParams();
   const [data, setData] = useState([]);
 
-  const getBodyPartDetail = async () => {
-    try {
-      const exercises = await fetchExercises(`exercises/bodyPart/${bodyPart}`, {
-        limit: "10",
-        offset: "0",
-      });
-      setData(exercises);
-    } catch (error) {
-      console.error("Error fetching exercises:", error);
-    }
-  };
-
   useEffect(() => {
+    const getBodyPartDetail = async () => {
+      try {
+        const exercises = await fetchExercises(
+          `exercises/bodyPart/${bodyPart}`,
+          {
+            limit: "10",
+            offset: "0",
+          }
+        );
+        setData(exercises);
+      } catch (error) {
+        console.error("Error fetching exercises:", error);
+      }
+    };
     getBodyPartDetail();
   }, [bodyPart]);
 

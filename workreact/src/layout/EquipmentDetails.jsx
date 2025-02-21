@@ -8,26 +8,30 @@ const EquipmentDetails = () => {
 
   const [data, setData] = useState([]);
 
-  const getEquipmentDetail = async () => {
-    try {
-      const equipments = await fetchExercises(`exercises/equipment/${equipment}`, {
-        limit: "10",
-        offset: "0",
-      });
-      setData(equipments);
-      console.log(equipments); // Log the fetched equipments
-    } catch (error) {
-      console.error("Error fetching exercises:", error);
-    }
-  };
-
   useEffect(() => {
+    const getEquipmentDetail = async () => {
+      try {
+        const equipments = await fetchExercises(
+          `exercises/equipment/${equipment}`,
+          {
+            limit: "10",
+            offset: "0",
+          }
+        );
+        setData(equipments);
+        console.log(equipments); // Log the fetched equipments
+      } catch (error) {
+        console.error("Error fetching exercises:", error);
+      }
+    };
     getEquipmentDetail();
-  }, [equipment]); 
+  }, [equipment]);
 
   return (
     <div className="container mx-auto">
-      <h1 className="text-center text-5xl bold mb-4">Exercises for {equipment}</h1>
+      <h1 className="text-center text-5xl bold mb-4">
+        Exercises for {equipment}
+      </h1>
       {data.length > 0 ? (
         <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-4">
           {data.map((exercise, index) => (

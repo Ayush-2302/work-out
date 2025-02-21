@@ -6,18 +6,17 @@ const ExerciseDetails = () => {
   const { exercise_id } = useParams();
   const [data, setData] = useState(null);
 
-  const getExerciseDetail = async () => {
-    try {
-      const exercises = await fetchExercises(
-        `exercises/exercise/${exercise_id}`
-      );
-      setData(exercises);
-    } catch (error) {
-      console.error("Error fetching exercises:", error);
-    }
-  };
-
   useEffect(() => {
+    const getExerciseDetail = async () => {
+      try {
+        const exercises = await fetchExercises(
+          `exercises/exercise/${exercise_id}`
+        );
+        setData(exercises);
+      } catch (error) {
+        console.error("Error fetching exercises:", error);
+      }
+    };
     getExerciseDetail();
   }, [exercise_id]);
 
