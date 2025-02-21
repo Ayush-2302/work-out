@@ -3,9 +3,13 @@ const express = require("express");
 const mongoose= require('mongoose')
 const workoutRouter=require('./routes/workout')
 const userRouter=require ('./routes/user')
+const cors = require('cors');
 
 // express app
 const app = express();
+// cors
+app.use(cors());
+
 // middelwear
 app.use(express.json());
 
